@@ -1,0 +1,40 @@
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ pageTitle }}</title>
+    <!-- Add your CSS stylesheets here -->
+    <link rel="stylesheet" href="home-style.css">
+</head>
+
+<body>
+    <header>
+        {{#if signedIn}}
+            <h1>Welcome, {{ username }}!</h1>
+            <p><a href="/profile">View Your Profile</a></p>
+            <p>Status: Signed In</p>
+        {{else}}
+            <h1>Welcome to our App!</h1>
+            <p>Status: Sign Out</p>
+        {{/if}}
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="/">Home</a></li>
+            {{#if signedIn}}
+                <li><a href="/logout">Logout</a></li>
+            {{else}}
+                <li><a href="/login">Login</a></li>
+            {{/if}}
+            <!-- Add more navigation links as needed -->
+        </ul>
+    </nav>
+
+    <section class="main-content">
+        <!-- Add your main content here -->
+        <h2>Featured Content</h2>
+        <p>This is the homepage of our app. Customize it as needed.</p>
+    </section>
+
+</body>
+
