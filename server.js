@@ -1,11 +1,13 @@
 const express = require('express');
 const session = require('express-session');
 const logger = require('morgan');
-const helpers = require('./utils/helpers');
-const routes = require('./controllers');
+// const helpers = require('./public');
+const routes = require('./api');
 const expresshbs = require('express-handlebars');
 const path = require('path');
 const env = require('dotenv');
+const morgan = require('morgan');
+
 
 const sequelize = require('./config/connection');
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
