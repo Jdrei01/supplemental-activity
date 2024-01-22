@@ -34,7 +34,7 @@ const sess = {
     })
 };
 
-const handlebars = expresshbs.create({ helpers });
+const handlebars = expresshbs.create();
 app.engine('handlebars', handlebars.engine);
 app.set('view engine', 'handlebars');
 app.set('views', './views');
@@ -49,37 +49,13 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(routes);
 
+
+app.get('/', (req, res) => {
+    res.render('homepage');
+})
+
 sequelize.sync({ force: false }).then(() => {
     app.listen(PORT, () => { console.log(`Server listening on: http://localhost:${PORT}`) });
 });
 
 
-
-
-// const express = require('express');
-// const session = require('express-session');
-// const sequelize = require('./config/connection');
-// const routes = require('./api/index');
-
-// require('dotenv').config();
-
-
-// const app = express();
-// const PORT = process.env.PORT || 3000;
-
-// app.use(express.json());
-// app.use(express.urlencoded({ extended: true }));
-
-// app.use(
-//   session({
-//     secret: 'your_secret_key',
-//     resave: false,
-//     saveUninitialized: true,
-//   })
-// );
-
-// app.use(routes);
-
-// sequelize.sync({ force: false }).then(() => {
-//   app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));
-// });
