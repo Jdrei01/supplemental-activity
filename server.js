@@ -32,15 +32,14 @@ app.set('view engine', 'handlebars');
 app.set('views', path.join(__dirname, 'views'));
 
 app.use(session(sess));
-app.use(logger('dev'));
+// app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(routes);
 
 app.get('/', (req, res) => {
-    console.log('rendering homepage');
-    res.render('homepage', { layout: 'homepage' });
+    res.render('homepage', { logged_in: req.session.logged_in, username: req.session.username});
 });
 
                     
@@ -54,7 +53,9 @@ app.get('/login', (req, res) => {
 });
 
 app.get('/logout', (req, res) => {
-    res.render('logout');
+    req.session.destroy(() => {
+        res.redirect('/');
+    });
 });
 
 sequelize.sync({ force: false }).then(() => {

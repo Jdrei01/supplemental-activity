@@ -1,25 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Home</title>
-    <!-- Add your CSS stylesheets here -->
+    <title>UserSpace</title>
+    
     <link rel="stylesheet" href="/styles/style.css">
 
 </head>
+
 <body>
-    
+
     <header>
-        {{#if signedIn}}
+        <h1><a id="homeBtn" href="/">HOME</a></h1>
+        {{#if logged_in}}
             <h1>Welcome, {{ username }}!</h1>
-            <img src="{{ userPhoto }}" alt="{{ username }}'s Profile Picture">
+            <img src="/images/images.png" alt="{{ username }}'s Profile Picture" height="50px">
             <p>Status: Signed In</p>
         {{else}}
-            <h1>Guest User</h1>
-            <p>Status: Sign Out</p>
+            <h1>You Are a Guest User: Please <a href="/login">LOG IN</a>!</h1>
+            <p>Status: You Are Signed Out</p>
         {{/if}}
     </header>
-    
+
+    {{{ body }}}
+
 </body>
 </html>

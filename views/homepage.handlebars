@@ -1,21 +1,27 @@
     <header>
-    <h1>User Profile</h1>
+    <h1>UserSpace Profile Page</h1>
     </header>
     <nav>
+        {{#if logged_in}}
         <ul>
             <li><a href="/">Home</a></li>
-            <li><a href="/profile">Profile</a></li>
             <li><a href="/logout">Logout</a></li>
         </ul>
+        {{else}}
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/login">Login</a></li>
+        </ul>
+        {{/if}}
     </nav>
 
     <section class="main-content">
-        {{#if signedIn}}
+        {{#if logged_in}}
             <h2>Welcome, {{ username }}!</h2>
-            <img src="{{ userPhoto }}" alt="{{ username }}'s Profile Picture">
-            <p>Status: Signed In</p>
+            <img src="/images/images.png" width="100px" alt="{{ username }}'s Profile Picture">
+            <p>Status: You Are Signed In</p>
         {{else}}
-            <p>Please sign in to view your profile.</p>
+            <p>Please <a href="/login">LOG IN</a> or <a href="/signup">SIGN UP</a> to view your profile</p>
         {{/if}}
     </section>
 
