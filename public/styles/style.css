@@ -1,0 +1,58 @@
+body, h1, h2, p {
+    margin: 0;
+    padding: 0;
+}
+#homeBtn {
+    font-size: 45px;
+    color: black;
+    
+    font-family: 'Arial', sans-serif;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: tan;
+}
+
+header {
+    background-color: darkgreen;
+    color: #fff;
+    padding: 10px;
+    text-align: center;
+}
+
+nav {
+    background-color: grey;
+    padding: 10px;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: space-around;
+}
+
+li {
+    margin-right: 10px;
+}
+
+a {
+    text-decoration: none;
+    color: limegreen;
+}
+
+.main-content {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: white;
+    text-align: center;
+    
+}
+
+section {
+    margin: 20px 0;
+    text-align: center;
+}

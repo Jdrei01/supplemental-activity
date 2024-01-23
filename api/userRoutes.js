@@ -3,49 +3,65 @@ const { User } = require('./User');
 
 
 // Sign up
-router.post('/', async (req, res) => {
-    try {
-      const userData = await User.create(req.body);
-  
-      req.session.save(() => {
-        req.session.user_id = userData.id;
-        req.session.logged_in = true;
-        req.session.username = userData.username;
-  
-        res.status(200).json(userData);
-      });
-    } catch (err) {
-      res.status(400).json(err);
-    }
-  });
+router.post('/signup', async (req, res) => {
+  try {
+    const { username, password } = req.body;
 
-// Log in
+    const userData = await User.create({
+      username,
+      password,
+    });
+
+    req.session.save(() => {
+      req.session.user_id = userData.id;
+      req.session.logged_in = true;
+      req.session.username = userData.username;
+
+    const redirectStatus = req.session.logged_in ? 301 : 302;
+            res.redirect(redirectStatus, '/');
+
+
+
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(400).json({ message: 'Failed to create user' });
+  }
+});
+
+  // Log in
 router.post('/login', async (req, res) => {
-    try {
-      const userData = await User.findOne({ where: { email: req.body.email } });
-      if (!userData) {
-        res.status(400).json({ message: 'Incorrect email or password, please try again' });
-        return;
-      }
-  
-      const validPassword = await userData.checkPassword(req.body.password);
-      if (!validPassword) {
-        res.status(400).json({ message: 'Incorrect email or password, please try again' });
-        return;
-      }
-  
-      req.session.save(() => {
-        req.session.user_id = userData.id;
-        req.session.logged_in = true;
-        req.session.username = userData.username;
-  
-        res.json({ user: userData, message: 'You are now logged in!' });
-      });
-  
-    } catch (err) {
-      res.status(400).json(err);
+  try {
+    const { username, password } = req.body;
+
+    const userData = await User.findOne({ where: { username } });
+    if (!userData) {
+      res.status(400).json({ message: 'Incorrect username or password, please try again' });
+      return;
     }
-  });
+
+    const validPassword = await userData.checkPassword(password);
+    if (!validPassword) {
+      res.status(400).json({ message: 'Incorrect username or password, please try again' });
+      return;
+    }
+
+    req.session.save(() => {
+      req.session.user_id = userData.id;
+      req.session.logged_in = true;
+      req.session.username = userData.username;
+
+    const redirectStatus = req.session.logged_in ? 301 : 302;
+            res.redirect(redirectStatus, '/');
+            
+    });
+
+  } catch (err) {
+    console.error(err);
+    res.status(400).json({ message: 'Failed to log in' });
+  }
+});
+
 
   // Log out
   router.post('/logout', (req, res) => {

@@ -1,29 +1,28 @@
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ pageTitle }}</title>
-  
-    <link rel="stylesheet" href="login-style.css">
+    <title>User Signup</title>
+    <!-- Add your CSS stylesheets here -->
+    <link rel="stylesheet" href="../public/styles/style.css">
 </head>
+
 <body>
     <header>
-        <h1>Login</h1>
+        <h1>User Signup</h1>
     </header>
 
-    <section class="login-form">
-        <form action="/login" method="post">
+    <section class="signup-form">
+        <form action="/signup" method="POST">
             <label for="username">Username:</label>
             <input type="text" id="username" name="username" required>
 
             <label for="password">Password:</label>
             <input type="password" id="password" name="password" required>
 
-            <button type="submit">Log In</button>
+        
+            <button type="submit">Sign Up</button>
         </form>
     </section>
-    
-    <section>
-        <p>If you don't have an account, click to <a href="/signup">SIGN UP</a></p>
-    </section>
-
-
+    <script src="../api/userRoutes.js"></script>
+   </body>
