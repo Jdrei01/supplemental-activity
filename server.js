@@ -1,61 +1,62 @@
 const express = require('express');
 const session = require('express-session');
 const logger = require('morgan');
-// const helpers = require('./public');
 const routes = require('./api');
-const expresshbs = require('express-handlebars');
+const exphbs = require('express-handlebars');
 const path = require('path');
 const env = require('dotenv');
 const morgan = require('morgan');
-
-
 const sequelize = require('./config/connection');
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
 
 const app = express();
 const PORT = process.env.PORT || 3001;
 
-
-
-//sets up session. used for cookies basically
+// sets up session for cookies
 const sess = {
-    //used to sign the session ID cookie
     secret: process.env.SESSION_SECRET || 'defaultSecret',
-    //if empty, it uses the default settings
     cookie: {},
-    //if true, it saves it in the session store
     resave: false,
-    //if true, it's saves an uninitialized sess in the store. uninitialized sess are new but not modified
-    //if false, complies with laws that require permission before settinf a cookie
     saveUninitialized: false,
-    //this means that the session data will be stored in the same db as the Sequelize models
     store: new SequelizeStore({
         db: sequelize
     })
 };
 
-const handlebars = expresshbs.create();
-app.engine('handlebars', handlebars.engine);
-app.set('view engine', 'handlebars');
-app.set('views', './views');
+// Create an instance of express-handlebars
+const hbs = exphbs.create();
 
-//attaches req.session
+// Use the instance's engine property when setting up the engine
+app.engine('handlebars', hbs.engine);
+app.set('view engine', 'handlebars');
+app.set('views', path.join(__dirname, 'views'));
+
 app.use(session(sess));
 app.use(logger('dev'));
-
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
-
 app.use(routes);
 
-
 app.get('/', (req, res) => {
-    res.render('homepage');
-})
+    console.log('rendering homepage');
+    res.render('homepage', { layout: 'homepage' });
+});
+
+                    
+// Authentication routes
+app.get('/signup', (req, res) => {
+    res.render('signup');
+});
+
+app.get('/login', (req, res) => {
+    res.render('login');
+});
+
+app.get('/logout', (req, res) => {
+    res.render('logout');
+});
 
 sequelize.sync({ force: false }).then(() => {
     app.listen(PORT, () => { console.log(`Server listening on: http://localhost:${PORT}`) });
 });
-
-

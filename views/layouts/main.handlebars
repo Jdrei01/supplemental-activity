@@ -3,12 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ pageTitle }}</title>
+    <title>User Home</title>
     <!-- Add your CSS stylesheets here -->
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="/styles/style.css">
 
 </head>
 <body>
+    
     <header>
         {{#if signedIn}}
             <h1>Welcome, {{ username }}!</h1>
@@ -19,11 +20,6 @@
             <p>Status: Sign Out</p>
         {{/if}}
     </header>
-
-    <!-- Add your main content here -->
-    {{ body }}
-
-    <!-- Add your JavaScript files here -->
-    <script src="main.js"></script>
+    
 </body>
 </html>
